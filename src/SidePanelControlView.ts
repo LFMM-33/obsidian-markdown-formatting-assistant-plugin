@@ -3,26 +3,22 @@ import { iconFormatter, formatSettings, formatterSetting } from './formatter';
 import {
   htmlFormatter,
   htmlFormatterSettings,
-  htmlFormatterSetting,
 } from './htmlFormatter';
 import {
   greekFormatter,
   greekLowerCaseFormatterSettings,
   greekUpperCaseFormatterSettings,
-  greekFormatterSetting,
 } from './greekFormatter';
 import {
   latexFormatter,
   latexFormatterSettings,
-  latexFormatterSetting,
 } from './latexFormatter';
 import { colorFormatter } from '../formatters/colorFormatter';
 import {
-  ButtonComponent,
   ItemView,
   Notice,
-  TFile,
   WorkspaceLeaf,
+  MarkdownView
 } from 'obsidian';
 import * as R from 'ramda';
 import MarkdownAutocompletePlugin from './main';
@@ -222,11 +218,13 @@ export class SidePanelControlView extends ItemView {
         // @ts-ignore
         const formatterSetting = htmlFormatterSettings[type];
 
-        const leaf = this.app.workspace.activeLeaf;
+        // @ts-ignore
+        this.app.commands.executeCommandById("editor:focus");
+        const view = this.app.workspace.getActiveViewOfType(MarkdownView)
         let editor = null;
-        if (checkIfMarkdownSource(leaf)) {
+        if (view) {
           // @ts-ignore
-          editor = leaf.view.sourceMode.cmEditor;
+          editor = view.editor;
           htmlFormatter(editor, formatterSetting);
         }
       });
@@ -256,11 +254,13 @@ export class SidePanelControlView extends ItemView {
         // @ts-ignore
         const formatterSetting = latexFormatterSettings[type];
 
-        const leaf = this.app.workspace.activeLeaf;
+        // @ts-ignore
+        this.app.commands.executeCommandById("editor:focus");
+        const view = this.app.workspace.getActiveViewOfType(MarkdownView)
         let editor = null;
-        if (checkIfMarkdownSource(leaf)) {
+        if (view) {
           // @ts-ignore
-          editor = leaf.view.sourceMode.cmEditor;
+          editor = view.editor;
           latexFormatter(editor, formatterSetting);
         }
       });
@@ -277,6 +277,7 @@ export class SidePanelControlView extends ItemView {
       }
 
       let button = row.createDiv({ cls: 'nav-action-text-button' });
+      // @ts-ignore
       button.style.textJustify = 'center';
       button.style.textAlign = 'center';
 
@@ -301,11 +302,13 @@ export class SidePanelControlView extends ItemView {
         // @ts-ignore
         const formatterSetting = greekLowerCaseFormatterSettings[type];
 
-        const leaf = this.app.workspace.activeLeaf;
+        // @ts-ignore
+        this.app.commands.executeCommandById("editor:focus");
+        const view = this.app.workspace.getActiveViewOfType(MarkdownView);
         let editor = null;
-        if (checkIfMarkdownSource(leaf)) {
+        if (view) {
           // @ts-ignore
-          editor = leaf.view.sourceMode.cmEditor;
+          editor = view.editor;
           greekFormatter(editor, formatterSetting);
         }
       });
@@ -332,12 +335,13 @@ export class SidePanelControlView extends ItemView {
       btn.onClickEvent(() => {
         // @ts-ignore
         const formatterSetting = greekUpperCaseFormatterSettings[type];
-
-        const leaf = this.app.workspace.activeLeaf;
+        // @ts-ignore
+        this.app.commands.executeCommandById("editor:focus");
+        const view = this.app.workspace.getActiveViewOfType(MarkdownView)
         let editor = null;
-        if (checkIfMarkdownSource(leaf)) {
+        if (view) {
           // @ts-ignore
-          editor = leaf.view.sourceMode.cmEditor;
+          editor = view.editor;
           greekFormatter(editor, formatterSetting);
         }
       });
@@ -365,11 +369,13 @@ export class SidePanelControlView extends ItemView {
         // @ts-ignore
         const formatterSetting = formatSettings[type];
 
-        const leaf = this.app.workspace.activeLeaf;
+        // @ts-ignore
+        this.app.commands.executeCommandById("editor:focus");
+        const view = this.app.workspace.getActiveViewOfType(MarkdownView)
         let editor = null;
-        if (checkIfMarkdownSource(leaf)) {
+        if (view) {
           // @ts-ignore
-          editor = leaf.view.sourceMode.cmEditor;
+          editor = view.editor;
           iconFormatter(editor, formatterSetting);
         }
       });

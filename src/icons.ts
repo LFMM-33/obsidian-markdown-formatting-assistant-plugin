@@ -14,7 +14,7 @@ function importIconPaths() {
   let res = {};
   // @ts-ignore
   R.forEachObjIndexed((value, key, obj) => {
-    res = R.merge(res, R.map(pathToSvg, value));
+    res = R.merge(res, R.map(pathToSvg as any, value));
   }, iconPaths);
   return res;
 }

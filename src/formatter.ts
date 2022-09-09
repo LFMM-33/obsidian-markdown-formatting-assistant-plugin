@@ -1,3 +1,5 @@
+import { Editor } from "obsidian";
+
 export interface formatterSetting {
   des: string;
   icon: string;
@@ -200,7 +202,7 @@ export const formatSettings = {
   },
 };
 
-function checkIfSelection(editor: CodeMirror.Editor) {
+function checkIfSelection(editor: Editor) {
   const selection = editor.getSelection();
   if (!selection || selection === '') {
     return false;
@@ -210,7 +212,7 @@ function checkIfSelection(editor: CodeMirror.Editor) {
 }
 
 export function iconFormatter(
-  editor: CodeMirror.Editor,
+  editor: Editor,
   item: formatterSetting,
 ) {
   if (editor) {

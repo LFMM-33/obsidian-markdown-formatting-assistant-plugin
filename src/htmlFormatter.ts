@@ -1,4 +1,5 @@
 import { checkIfSelection } from './generalFunctions';
+import { Editor } from 'obsidian';
 
 export interface htmlFormatterSetting {
   des: string;
@@ -115,7 +116,7 @@ export const htmlFormatterSettings = {
 };
 
 export function htmlFormatter(
-  editor: CodeMirror.Editor,
+  editor: Editor,
   item: htmlFormatterSetting,
 ) {
   if (editor) {

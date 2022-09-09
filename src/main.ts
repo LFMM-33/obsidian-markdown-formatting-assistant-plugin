@@ -13,8 +13,6 @@ import {
   SidePanelControlView,
   SidePanelControlViewType,
 } from './SidePanelControlView';
-import { CommandListView } from './CommandListView';
-import plugin from 'rollup-plugin-import-css';
 
 interface RegionSetting {
   name: string;
@@ -54,8 +52,6 @@ const DEFAULT_SETTINGS: PluginSettings = {
 export default class MarkdownAutocompletePlugin extends Plugin {
   settings: PluginSettings;
   private sidePanelControlView: SidePanelControlView;
-  private commandListView: CommandListView;
-  private keyUpFunction: (cm: CodeMirror.Editor, event: KeyboardEvent) => {};
 
   async onload() {
     console.log('loading obsidian-markdown-formatting-assistant-plugin');
@@ -92,24 +88,10 @@ export default class MarkdownAutocompletePlugin extends Plugin {
 
     this.addSettingTab(new SettingsTab(this.app, this));
 
-    this.keyUpFunction = (cm: CodeMirror.Editor, event: KeyboardEvent) => {
-      return CommandListView.display(
-        this.app,
-        cm,
-        event,
-        this.settings.triggerChar,
-      );
-    };
-
-    this.registerCodeMirror((cm: CodeMirror.Editor) => {
-      cm.on('keyup', this.keyUpFunction);
-    });
+    //this.registerEditorSuggest()
   }
 
   onunload() {
-    this.app.workspace.iterateCodeMirrors((cm: CodeMirror.Editor) => {
-      cm.off('keyup', this.keyUpFunction);
-    });
   }
 
   async loadSettings() {
@@ -148,6 +130,7 @@ export default class MarkdownAutocompletePlugin extends Plugin {
       this.app.workspace.getLeavesOfType(SidePanelControlViewType)[0],
     );
   };
+
 }
 
 class SampleModal extends Modal {
@@ -178,9 +161,9 @@ class SettingsTab extends PluginSettingTab {
     this.plugin = plugin;
   }
 
-  close() {
-    console.log('closed');
-    super.close();
+  hide() {
+    console.log('hided');
+    super.hide();
   }
 
   async display() {

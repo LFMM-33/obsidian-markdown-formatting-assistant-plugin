@@ -1,4 +1,5 @@
 import { checkIfSelection } from './generalFunctions';
+import { Editor } from 'obsidian';
 
 export interface latexFormatterSetting {
   des: string;
@@ -230,7 +231,7 @@ export const latexFormatterSettings = {
 };
 
 export function latexFormatter(
-  editor: CodeMirror.Editor,
+  editor: Editor,
   item: latexFormatterSetting,
 ) {
   if (editor) {

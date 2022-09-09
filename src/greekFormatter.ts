@@ -1,4 +1,5 @@
 import { checkIfSelection } from './generalFunctions';
+import { Editor } from 'obsidian';
 
 export interface greekFormatterSetting {
   des: string;
@@ -297,7 +298,7 @@ export const greekUpperCaseFormatterSettings = {
 };
 
 export function greekFormatter(
-  editor: CodeMirror.Editor,
+  editor: Editor,
   item: greekFormatterSetting,
 ) {
   if (editor) {

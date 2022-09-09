@@ -14,7 +14,12 @@ export default {
     format: 'cjs',
     exports: 'default',
   },
-  external: ['obsidian'],
+  external: [
+    'obsidian', 
+    '@codemirror/state', 
+    '@codemirror/view', 
+    '@codemirror/language'
+  ],
   plugins: [
     typescript(),
     nodeResolve({ browser: true }),

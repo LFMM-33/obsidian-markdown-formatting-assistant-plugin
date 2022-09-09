@@ -1,7 +1,10 @@
-import * as R from 'ramda';
-import { App } from 'obsidian';
+import { App, Editor } from 'obsidian';
 import { svgToElement } from './icons';
-import { formatSettings, formatterSetting, iconFormatter } from './formatter';
+import { 
+  formatSettings, 
+  formatterSetting, 
+  iconFormatter 
+} from './formatter';
 import {
   htmlFormatter,
   htmlFormatterSettings,
@@ -23,18 +26,18 @@ export class CommandListView {
   private static commandListView: CommandListView;
   private static oldCurser: CodeMirror.Position;
   private readonly app: App;
-  private cm: CodeMirror.Editor;
+  private cm: Editor;
   private codeString: string;
   private startIndex: number;
   private endIndex: number;
   private rows: Array<HTMLElement> = [];
   private selectetRowId: string = null;
-
+  private visible: boolean = false;
   private keyDownHandler: (cf: CodeMirror.Editor, e: KeyboardEvent) => boolean;
 
   constructor(
     app: App,
-    cm: CodeMirror.Editor,
+    cm: Editor,
     startIndex: number,
     endIndex: number,
   ) {
@@ -75,7 +78,7 @@ export class CommandListView {
 
   public static display(
     app: App,
-    cm: CodeMirror.Editor,
+    cm: Editor,
     event: KeyboardEvent,
     triggerKey: string,
   ) {
@@ -129,6 +132,7 @@ export class CommandListView {
       CommandListView.commandListView = null;
       this.cm.off('keydown', this.keyDownHandler);
     }
+    
   };
 
   private getWidgetView = (): HTMLElement => {
